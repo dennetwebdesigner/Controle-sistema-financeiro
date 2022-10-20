@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://joatan:123@localhost:3306/finantrol"
+}
+
+model User {
+  id          String        @id @default(uuid())
+  createdAt   DateTime      @default(now())
+  username    String        @unique
+  password    String
+  Profie      Profie[]
+  Address     Address[]
+  Contact     Contact[]
+  Marketplace Marketplace[]
+}
+
+model Marketplace {
+  id                String               @id @default(uuid())
+  name              String
+  user_id           String
+  user              User                 @relation(fields: [user_id], references: [id])
+  createdAt         DateTime             @default(now())
+  AddressMarkeplace AddressMarketplace[]
+  ContactMarkeplace ContactMarketplace[]
+  Product           Product[]
+  Sale              Sale[]
+
+  @@map("marketplaces")
+}
+
+model Profie {
+  id        String   @id @default(uuid())
+  name      String
+  lastName  String
+  birthday  String
+  createdAt DateTime @default(now())
+  user_id   String
+  user      User     @relation(fields: [user_id], references: [id])
+
+  @@map("profile")
+}
+
+model Address {
+  id        String   @id @default(uuid())
+  city      String
+  state     String
+  country   String
+  createdAt DateTime @default(now())
+  user_id   String
+  user      User     @relation(fields: [user_id], references: [id])
+
+  @@map("addresses")
+}
+
+model AddressMarketplace {
+  id             String      @id @default(uuid())
+  city           String
+  state          String
+  country        String
+  createdAt      DateTime    @default(now())
+  marketplace_id String
+  marketplace    Marketplace @relation(fields: [marketplace_id], references: [id])
+
+  @@map("addresses_marketplaces")
+}
+
+model Contact {
+  id        String   @id @default(uuid())
+  type      String
+  data      String
+  createdAt DateTime @default(now())
+  user_id   String
+  user      User     @relation(fields: [user_id], references: [id])
+
+  @@map("contact")
+}
+
+model ContactMarketplace {
+  id             String      @id @default(uuid())
+  type           String
+  data           String
+  createdAt      DateTime    @default(now())
+  marketplace_id String
+  marketplace    Marketplace @relation(fields: [marketplace_id], references: [id])
+
+  @@map("contact_marketplaces")
+}
+
+model Product {
+  id             String      @id @default(uuid())
+  code           String
+  name           String
+  description    String
+  stock          Int
+  value          Decimal
+  img            String
+  createdAt      DateTime    @default(now())
+  marketplace_id String
+  marketplace    Marketplace @relation(fields: [marketplace_id], references: [id])
+
+  @@map("products")
+}
+
+model Sale {
+  id             String      @id @default(uuid())
+  total          String
+  products       String
+  createdAt      DateTime    @default(now())
+  marketplace_id String
+  marketplace    Marketplace @relation(fields: [marketplace_id], references: [id])
+
+  @@map("sales")
+}

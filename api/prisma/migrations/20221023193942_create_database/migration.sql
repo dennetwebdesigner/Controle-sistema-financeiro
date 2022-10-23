@@ -96,18 +96,9 @@ CREATE TABLE `products` (
 CREATE TABLE `sales` (
     `id` VARCHAR(191) NOT NULL,
     `total` VARCHAR(191) NOT NULL,
+    `products` VARCHAR(191) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `marketplace_id` VARCHAR(191) NOT NULL,
-
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `sales_on_products` (
-    `id` VARCHAR(191) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `sale_id` VARCHAR(191) NOT NULL,
-    `product_id` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -135,9 +126,3 @@ ALTER TABLE `products` ADD CONSTRAINT `products_marketplace_id_fkey` FOREIGN KEY
 
 -- AddForeignKey
 ALTER TABLE `sales` ADD CONSTRAINT `sales_marketplace_id_fkey` FOREIGN KEY (`marketplace_id`) REFERENCES `marketplaces`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `sales_on_products` ADD CONSTRAINT `sales_on_products_sale_id_fkey` FOREIGN KEY (`sale_id`) REFERENCES `sales`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `sales_on_products` ADD CONSTRAINT `sales_on_products_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

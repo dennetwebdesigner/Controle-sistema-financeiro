@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
-import { ProductsDTO } from '../ProductDTO'
+
 import { CreateProductServices } from './CreateProductServices'
+import { ProductsDTO } from '../ProductDTO'
 
 export class CreateProductController {
   constructor(private service: CreateProductServices) {}

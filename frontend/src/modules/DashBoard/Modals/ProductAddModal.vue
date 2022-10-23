@@ -14,7 +14,20 @@
         </p>
       </fieldset>
 
-      <FormFieldSimple v-model="addInput.name" label-name="Nome do Produto" />
+      <!-- FIELD PRODUCT NAME -->
+      <FormFieldSimple v-model="addInput.name" label-name="Nome:" />
+
+      <!-- FIELD PRODUCT NAME -->
+      <FormFieldSimple v-model="addInput.description" label-name="Descrição:" />
+
+      <!-- FIELD PRODUCT NAME -->
+      <FormFieldSimple v-model="addInput.stock" label-name="Nº no estoque:" />
+
+      <!-- FIELD PRODUCT NAME -->
+      <FormFieldSimple v-model="addInput.code" label-name="codigo:" />
+
+      <!-- FIELD PRODUCT NAME -->
+      <FormFieldSimple v-model="addInput.value" label-name="valor:" />
 
       <fieldset class="mb-4">
         <button
@@ -40,6 +53,10 @@
 
   const addInput = reactive({
     name: '',
+    description: '',
+    value: '',
+    code: '',
+    stock: '0',
   })
 
   onMounted(() => {
@@ -57,12 +74,30 @@
 
   const addProductHandleClick = () => {
     if (!addInput.name || addInput.name.length < 3) {
-      alert('Nome do cliente é invalido!')
+      alert('Nome do produto/serviço é invalido!')
+      return
+    } else if (!addInput.description || addInput.description.length < 3) {
+      alert('Descrição do produto/serviço  é invalido!')
+      return
+    } else if (!addInput.code || addInput.code.length < 3) {
+      alert('codigo do produto/serviço  é invalido!')
+      return
+    } else if (!addInput.stock) {
+      alert('Insira a quantidade do produto/serviço')
+      return
+    } else if (!addInput.value) {
+      alert('Insira o valor do produto/serviço!')
       return
     }
 
     const { setProduct } = productsStore()
-    setProduct({ id: generateCodeTemp(), name: addInput.name })
+    setProduct({
+      code: generateCodeTemp(),
+      description: addInput.description,
+      stock: addInput.stock,
+      name: addInput.name,
+      value: addInput.value,
+    })
     addInput.name = ''
     alert('Nova Loja foi Cadastrada')
   }

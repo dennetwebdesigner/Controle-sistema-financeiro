@@ -35,12 +35,12 @@
       <td class="pb-2">Nome</td>
     </tr>
     <tr
-      v-for="client in productsData"
-      :key="client.id"
+      v-for="product in productsData"
+      :key="product.code"
       class="w-full border-b border-white"
     >
-      <td class="border-r border-white pb-2">{{ client.id }}</td>
-      <td class="pb-2">{{ client.name }}</td>
+      <td class="border-r border-white pb-2">{{ product.code }}</td>
+      <td class="pb-2">{{ product.name }}</td>
     </tr>
   </table>
   <ProductAddModal :set-modal="setModal" />

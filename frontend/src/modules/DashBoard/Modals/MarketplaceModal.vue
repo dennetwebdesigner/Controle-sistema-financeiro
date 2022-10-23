@@ -57,6 +57,5 @@
     const { setMarketplace } = marketplacesStore()
     setMarketplace({ id: 'AAAA', name: addInput.name })
     addInput.name = ''
-    alert('Nova Loja foi Cadastrada')
   }
 </script>

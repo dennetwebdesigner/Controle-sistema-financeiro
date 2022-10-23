@@ -1,3 +1,4 @@
+import { api } from '../../../utils/api'
 import { defineStore } from 'pinia'
 import { setLocal } from '../../../utils/localStorage'
 
@@ -18,8 +19,23 @@ export const marketplacesStore = defineStore('marketplace', {
       setLocal({ key: 'marketplaces', value: stringify(this.marketplaces) })
     },
     async setMarketplace(marketplace: dataMarketplaces) {
-      this.marketplaces.push(marketplace)
-      setLocal({ key: 'marketplaces', value: stringify(this.marketplaces) })
+      try {
+        const { data: marketplaceStore } = await api.post(
+          '/marketplaces',
+          marketplace
+        )
+        const { id, name } = marketplaceStore
+
+        this.marketplaces.push({ id, name })
+        alert('Nova Loja foi Cadastrada')
+
+        setLocal({ key: 'marketplaces', value: stringify(this.marketplaces) })
+      } catch (error) {
+        console.log(error)
+        alert(
+          'Ocorreu um erro, tente novamente mais tarde ou fale com o desenvolvedor.'
+        )
+      }
     },
   },
 })

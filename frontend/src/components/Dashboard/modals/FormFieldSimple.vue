@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
-  <fieldset class="mb-4">
+  <fieldset class="mb-4 flex justify-between">
     <label class="text-center mr-2 font-semibold">{{ props.labelName }}</label>
     <input
       type="text"

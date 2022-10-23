@@ -1,4 +1,7 @@
 export interface dataProducts {
-  id: string
   name: string
+  value: string
+  description: string
+  code: string
+  stock: string
 }
